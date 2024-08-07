@@ -7,41 +7,39 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 
-router.post("/login", async(req, res,next ) => {
+router.post("/login", async (req, res, next) => {
     try {
-        // throw new Error("This is an error");
-        const {email, password} = req.body;
-        const user = await User.findOne({email});
-        if(!user) {
-            res.status(400).json({message: "Wrong email or password"});
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            res.status(400).json({ message: "Wrong email or password" });
         }
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            res.status(400).json({ message: "Wrong email or password"})
+            res.status(400).json({ message: "Wrong email or password" });
         }
         else {
             const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-            res.header("auth-token", token).json({ message: "Logged in Successfully" });
+            res.json({ message: "Logged in successfully", token: token, user: user.name });
         }
     }
     catch (err) {
         next(err);
     }
-    
+
 })
 
 
 router.post("/register", async (req, res) => {
-    const {name, email, password, mobile} = req.body;
-    console.log(req.body);
-    const user = await User.findOne({email});
-    if(user){
-        return res.status(400).json({message: "User already exists"});
+    const { name, email, password, mobile } = req.body;
+    const user = await User.findOne({ email });  // it returns a promise
+    if (user) {
+        return res.status(400).json({ message: "User already exists" });
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
-        name, 
+        name,
         email,
         password: hashedPassword,
         mobile
@@ -49,5 +47,6 @@ router.post("/register", async (req, res) => {
     await newUser.save();
     res.status(200).json({ message: "User registered successfully" });
 });
+
 
 module.exports = router;

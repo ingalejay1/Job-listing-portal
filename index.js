@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const fs = require("fs");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -11,10 +12,17 @@ const authRoutes = require("./routes/auth");
 dotenv.config();
 const PORT = process.env.PORT;
 
-//log every incoming request
-// app.use((req, res, next) => {
-//     console.log(`${req.method} - ${req.url} - ${new Date()}`);
-// });
+// log every incoming request
+// Store it in a file
+app.use((req, res, next) => {
+    const log = `${req.method} - ${req.url} - ${req.ip} - ${new Date()}/n`;
+    fs.appendFile("log.txt", log, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+    next();
+});
 
 
 
@@ -26,10 +34,16 @@ app.get("/", (req, res) => {
 
 //error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    console.log(`${req.method} - ${req.url} - ${new Date()}`);
-    res.status(500).send("Something broke!");
-})
+    let log;
+    log = err.stack;
+    log += `/n${req.method} - ${req.url} - ${req.ip} - ${new Date()}/n`;
+    fs.appendFile("error.txt", log, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+    res.status(500).send("Something went wrong");
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on the port ${PORT}`);
