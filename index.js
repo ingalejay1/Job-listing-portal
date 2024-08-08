@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", authRoutes);
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send("hii anju");
 });
 
 //error handling middleware
