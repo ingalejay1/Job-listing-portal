@@ -1,0 +1,79 @@
+.container{
+    width: 50vw;
+    padding: 9vw 7vw 0 4vw;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column; 
+    overflow: hidden; 
+}
+.h1{
+    font-size: 32px;
+    margin-bottom: 16px;
+    font-weight: 900;
+}
+.h2{
+    font-size: 16px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+.input{
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin: 12px 0px;
+    height: 18px;
+    border: 2px solid #C2C2C2;
+    box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.01);
+}
+.button{
+    width: 40%;
+    /* height: 28px; */
+    padding: 8px;
+    font-size: 20px;
+    background: #ED5353;
+    box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.01);
+    border-radius: 5px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    margin-bottom:16px ;
+    cursor: pointer;
+
+}
+/* .footer{} */
+.underline{
+    margin: 4px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.p {
+    padding: 10px 0px 15px 0px;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    border: 0.5px solid 
+    #858585;
+    margin: 0px;
+    padding: 0px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: 
+    #858585; /* Change to your desired color */
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 10px;
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
