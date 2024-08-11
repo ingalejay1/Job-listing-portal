@@ -1,10 +1,13 @@
-import { Routes, Route } from 'react-router-dom'
-import Register from './Pages/Register.jsx'
-import Login from './Pages/Login.jsx'
+import { useState } from 'react'
+import './App.css';
+
 function App() {
+  const [count, setCount] = useState(0)
 
   return (
-    <div><Login/></div>
+    <>
+
+    </>
   )
 }
 
